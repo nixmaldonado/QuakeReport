@@ -31,15 +31,7 @@ public class EarthquakeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
 
-        ArrayList<Earthquake> earthquakes = new ArrayList<>();
-        earthquakes.add(new Earthquake("London", "7.5", "21 March"));
-        earthquakes.add(new Earthquake("San Francisco", "6", "2 March"));
-        earthquakes.add(new Earthquake("Tokio", "1", "4 April"));
-        earthquakes.add(new Earthquake("Mexico City", "2.3", "6 April"));
-        earthquakes.add(new Earthquake("Moscow", "9", "11 September"));
-        earthquakes.add(new Earthquake("Barcelona", "4.2", "14 April"));
-        earthquakes.add(new Earthquake("Hong Kong", "2", "24 July"));
-        earthquakes.add(new Earthquake("Tucuman", "5", "30 June"));
+        ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
 
 
         // Find a reference to the {@link ListView} in the layout

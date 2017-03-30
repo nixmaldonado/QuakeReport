@@ -19,7 +19,8 @@ import java.util.ArrayList;
 
 public class EarthquakeAdapter extends ArrayAdapter {
 
-    public EarthquakeAdapter(@NonNull Context context, @LayoutRes int resource, ArrayList<Earthquake> earthquakes) {
+    public EarthquakeAdapter(@NonNull Context context, @LayoutRes int resource,
+                             ArrayList<Earthquake> earthquakes) {
         super(context, resource, earthquakes);
     }
 
