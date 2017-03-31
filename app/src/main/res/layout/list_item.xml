@@ -6,11 +6,16 @@
     android:orientation="horizontal">
 
     <TextView
-        android:padding="16dp"
+        android:layout_marginLeft="8dp"
         android:id="@+id/magnitude_item"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/magnitude_circle"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
 
     <TextView
         android:padding="16dp"
