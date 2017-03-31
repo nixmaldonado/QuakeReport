@@ -26,8 +26,15 @@ public class Earthquake {
         return formatDate();
     }
 
+    public String getHour(){return formatHour();}
+
     @NonNull
     private String formatDate() {
         return new SimpleDateFormat("DD MMM, yyyy").format(date);
     }
+
+    private String formatHour() {
+        return new SimpleDateFormat("h:mm a").format(date);
+    }
+
 }
