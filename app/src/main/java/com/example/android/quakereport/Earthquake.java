@@ -6,10 +6,10 @@ import java.text.SimpleDateFormat;
 
 public class Earthquake {
     private String location;
-    private String magnitude;
+    private Double magnitude;
     private long date;
 
-    public Earthquake(String thisMagnitude,
+    public Earthquake(Double thisMagnitude,
                       String thisLocation, long thisDate){
         location  = thisLocation;
         magnitude = thisMagnitude;
@@ -18,7 +18,7 @@ public class Earthquake {
 
     public String getLocation(){return location;}
 
-    public String getMagnitude(){
+    public Double getMagnitude(){
         return magnitude;
     }
 

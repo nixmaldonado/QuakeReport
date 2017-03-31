@@ -35,7 +35,7 @@ public final class QueryUtils {
             try {
                 JSONObject currentEarthquake = jsonArray.getJSONObject(i);
                 JSONObject properties = currentEarthquake.getJSONObject("properties");
-                String magnitude = properties.getString("mag");
+                Double magnitude = properties.getDouble("mag");
                 String location  = properties.getString("place");
                 long time      = properties.getLong("time");
                 Earthquake earthquake = new Earthquake(magnitude, location, time);
