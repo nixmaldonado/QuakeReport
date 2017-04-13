@@ -14,16 +14,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-
-/**
- * Created by Nicolas Maldonado on 25/03/2017.
- */
+import java.util.List;
 
 public class EarthquakeAdapter extends ArrayAdapter {
 
     public EarthquakeAdapter(@NonNull Context context, @LayoutRes int resource,
-                             ArrayList<Earthquake> earthquakes) {
+                             List<Earthquake> earthquakes) {
         super(context, resource, earthquakes);
     }
 
