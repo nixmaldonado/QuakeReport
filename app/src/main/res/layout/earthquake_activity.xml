@@ -25,11 +25,20 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
     <TextView
         android:id="@+id/default_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+
+    <ProgressBar
+        android:id="@+id/loadin_spinner"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

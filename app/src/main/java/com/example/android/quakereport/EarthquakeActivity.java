@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class EarthquakeActivity extends AppCompatActivity
     private static final String USGS_QUERY = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
     private EarthquakeAdapter mAdapter;
     private TextView emptyTextView;
+    private ProgressBar loadingSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +79,13 @@ public class EarthquakeActivity extends AppCompatActivity
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
         Log.i(LOG_TAG,"onLoadFinished");
+        View loadingIndicator = findViewById(R.id.loadin_spinner);
+        loadingIndicator.setVisibility(View.GONE);
         emptyTextView.setText(R.string.no_earthquake);
         mAdapter.clear();
         if (earthquakes!= null && !earthquakes.isEmpty()) {
             mAdapter.addAll(earthquakes);
+
         }
     }
 
