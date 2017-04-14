@@ -24,6 +24,7 @@ import static com.example.android.quakereport.EarthquakeActivity.LOG_TAG;
 public final class QueryUtils {
 
     public static List<Earthquake> fetchEarthquakeData(String requestUrl) {
+        Log.i(LOG_TAG,"fetchEarthquakeData");
 
         URL url = createUrl(requestUrl);
 

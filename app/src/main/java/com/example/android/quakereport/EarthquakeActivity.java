@@ -21,6 +21,7 @@ import android.content.Loader;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -58,16 +59,20 @@ public class EarthquakeActivity extends AppCompatActivity
         });
 
         LoaderManager loaderManager = getLoaderManager();
+        Log.i(LOG_TAG,"initLoader");
         loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
     }
 
     @Override
     public Loader<List<Earthquake>> onCreateLoader(int id, Bundle args) {
+        Log.i(LOG_TAG,"onCreateLoader");
+
         return new EarthQuakeLoader(this, USGS_QUERY);
     }
 
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
+        Log.i(LOG_TAG,"onLoadFinished");
         mAdapter.clear();
         if (earthquakes!= null && !earthquakes.isEmpty()) {
             mAdapter.addAll(earthquakes);
@@ -76,6 +81,7 @@ public class EarthquakeActivity extends AppCompatActivity
 
     @Override
     public void onLoaderReset(Loader<List<Earthquake>> loader) {
+        Log.i(LOG_TAG,"onLoadReset");
         mAdapter.clear();
     }
 }
