@@ -33,7 +33,7 @@ public class Earthquake {
     public String getUrl(){return url;}
     @NonNull
     private String formatDate() {
-        return new SimpleDateFormat("DD MMM, yyyy").format(date);
+        return new SimpleDateFormat("MMM DD, yyyy").format(date);
     }
 
     private String formatHour() {
