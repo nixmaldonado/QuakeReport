@@ -40,6 +40,15 @@
         </activity>
         <activity android:name=".EarthquakeActivity"/>
 
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/settings_title">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.quakereport.EarthquakeActivity"/>
+        </activity>
+
+
 
 
     </application>
