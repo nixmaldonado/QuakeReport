@@ -11,8 +11,8 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +31,8 @@ public class EarthquakeActivity extends AppCompatActivity
     private static final String USGS_QUERY = "https://earthquake.usgs.gov/fdsnws/event/1/query";
     private EarthquakeAdapter mAdapter;
     private TextView emptyTextView;
+    private String minMagnitude;
+    private String orderBy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,6 @@ public class EarthquakeActivity extends AppCompatActivity
         earthquakeListView.setEmptyView(emptyTextView);
 
         mAdapter = new EarthquakeAdapter(this, R.layout.list_item, new ArrayList<Earthquake>());
-
         earthquakeListView.setAdapter(mAdapter);
 
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,7 +63,6 @@ public class EarthquakeActivity extends AppCompatActivity
 
         if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()){
             LoaderManager loaderManager = getLoaderManager();
-            Log.i(LOG_TAG,"initLoader");
             loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
         }else{
             setNoInternetConnectionMessage();
@@ -72,31 +72,13 @@ public class EarthquakeActivity extends AppCompatActivity
 
     @Override
     public Loader<List<Earthquake>> onCreateLoader(int id, Bundle args) {
-
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String minMagnitude = sharedPrefs.getString(
-                getString(R.string.settings_min_magnitude_key),
-                getString(R.string.settings_min_magnitude_default));
-
-
-        String orderBy = sharedPrefs.getString(
-                getString(R.string.settings_order_by_key),
-                getString(R.string.settings_order_by_default));
-
-        Uri baseUri = Uri.parse(USGS_QUERY);
-        Uri.Builder uriBuilder = baseUri.buildUpon();
-
-        uriBuilder.appendQueryParameter("format", "geojson");
-        uriBuilder.appendQueryParameter("limit", "10");
-        uriBuilder.appendQueryParameter("minmag", minMagnitude);
-        uriBuilder.appendQueryParameter("orderby", orderBy);
-
-        return new EarthQuakeLoader(this, uriBuilder.toString());
+        setPreferences();
+        return new EarthQuakeLoader(this, getUriString(minMagnitude, orderBy));
     }
+
 
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
-        Log.i(LOG_TAG,"onLoadFinished");
         View loadingIndicator = findViewById(R.id.loadin_spinner);
         loadingIndicator.setVisibility(View.GONE);
         emptyTextView.setText(R.string.no_earthquake);
@@ -109,7 +91,6 @@ public class EarthquakeActivity extends AppCompatActivity
 
     @Override
     public void onLoaderReset(Loader<List<Earthquake>> loader) {
-        Log.i(LOG_TAG,"onLoadReset");
         mAdapter.clear();
     }
 
@@ -134,4 +115,28 @@ public class EarthquakeActivity extends AppCompatActivity
             return true;
         }
     }
+
+    private void setPreferences() {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        minMagnitude = sharedPrefs.getString(
+                getString(R.string.settings_min_magnitude_key),
+                getString(R.string.settings_min_magnitude_default));
+
+        orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default));
+    }
+
+    @NonNull
+    private String getUriString(String minMagnitude, String orderBy) {
+        Uri baseUri = Uri.parse(USGS_QUERY);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("format", "geojson");
+        uriBuilder.appendQueryParameter("limit", "10");
+        uriBuilder.appendQueryParameter("minmag", minMagnitude);
+        uriBuilder.appendQueryParameter("orderby", orderBy);
+        return uriBuilder.toString();
+    }
+
 }
